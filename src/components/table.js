@@ -63,7 +63,8 @@ export default function table(){
         setFilterByPoa(!filterByPoa);
     }
     function addressSearchChange(e){
-        setFilterByAddress("bt"+e.target.value);
+        const value = e.target.value.replace('bt', '')
+        setFilterByAddress("bt"+value);
     }
     function maxPriceChange(e){
         setFilterByMaxPrice(parseInt(e.target.value));
