@@ -15,6 +15,10 @@ const columns = [
       Header: "Price",
       accessor: "price",
     },
+    {
+      Header: "Price Per Acre",
+      accessor: "pricePerAcre",
+    },
     // {
     //     Header: "Image",
     //     accessor: "pictures"
@@ -29,6 +33,7 @@ export default function table(){
     const [sortDirection, setSortDirection] = useState(-1);//-1 is descending
     const [pageNumber, setPageNumber] = useState(1);
     const [filteredProfiles, setFilteredProfiles] = useState([]);
+    const [filterByPoa, setFilterByPoa] = useState(false);
     useEffect(()=>{
         //sort profiles, then setFilteredProfiles
         const sortFn = (first, second)=>{
@@ -38,10 +43,11 @@ export default function table(){
             return first[sortProperty] > second[sortProperty] ? 1*sortDirection : -1*sortDirection;
         };
         // const paged = sorted.slice(0, pageNumber*PAGE_SIZE);
-        const filtered = profiles.filter((p,i)=>profiles.indexOf(profiles.find(pr=>pr.url===p.url))===i); //dedupe
+        let filtered = profiles.filter((p,i)=>profiles.indexOf(profiles.find(pr=>pr.url===p.url))===i); //dedupe
+        if(filterByPoa)filtered=filtered.filter(p=>!p.price);// filters out anything with a price, remaining is POA
         const sorted = filtered.sort(sortFn);
         setFilteredProfiles(sorted);
-    }, [profiles, sortProperty, sortDirection, pageNumber]);
+    }, [profiles, sortProperty, sortDirection, pageNumber, filterByPoa]);
     useEffect(() => {
         getProfiles();
     }, []);
@@ -49,7 +55,12 @@ export default function table(){
         if(sortProperty!=this)return setSortProperty(this) && setSortDirection(-1);
         setSortDirection(sortDirection*-1);
     }
+    function filterByPoaClick(){
+        setFilterByPoa(!filterByPoa);
+    }
     return (
+        <>
+        <button onClick={filterByPoaClick}>{filterByPoa ? "filtering by poa" : "filter by poa"}</button>
         <table>
         {isLoading ? (<h1>Loading..</h1>) : ""}
       <thead>
@@ -69,5 +80,6 @@ export default function table(){
         })}
       </tbody>
     </table>
+    </>
   );
 }
