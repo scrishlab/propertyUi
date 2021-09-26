@@ -1,7 +1,7 @@
 
 import React, {useEffect} from "react";
-import { useTable } from "react-table";
 import usePropertyProfiles from "../hooks/use-property-profiles";
+import TableCell from "./table-cell";
 const columns = [
     {
       Header: "Address",
@@ -24,7 +24,6 @@ export default function table(){
       useEffect(() => {
         getProfiles();
       }, []);
-      debugger;
     return (
         <table>
       <thead>
@@ -38,7 +37,7 @@ export default function table(){
         {profiles.map((row, i) => {
             return (
                 <tr key={i}>
-                    {columns.map((colHeader, k)=><td key={k}>{row[colHeader.accessor]}</td>)}
+                    {columns.map((colHeader, k)=><TableCell key={k} colHeader={colHeader} row={row}></TableCell>)}
                 </tr>
             );
         })}

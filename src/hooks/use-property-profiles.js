@@ -7,14 +7,11 @@ export default function usePropertyProfiles(initialState){
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     
-    debugger;
     function supabaseGetProfiles(){
         return client.from("land").select();
     }
 
     async function getProfiles(){
-        
-      debugger;
         setIsLoading(true);
         setError(null);
         const profilesRequest = await supabaseGetProfiles();
