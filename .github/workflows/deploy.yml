@@ -12,4 +12,9 @@ jobs:
         with:
           node-version: "14"
       - run: npm install
-      - run: CI=false npm run deploy
+      - run: CI=false npm run build
+
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
