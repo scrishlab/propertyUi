@@ -6,8 +6,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Table></Table>
+        <h1>Property Search</h1>
       </header>
+      <div style={{padding:`${30}px`}}>
+        <Table></Table>
+      </div>
     </div>
   );
 }

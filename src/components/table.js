@@ -5,6 +5,16 @@ import TableCell from "./table-cell";
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import TextField from '@mui/material/TextField';
+
+
+import MaterialTable from '@mui/material/Table';
+import MaterialTableBody from '@mui/material/TableBody';
+import MaterialTableCell from '@mui/material/TableCell';
+import MaterialTableContainer from '@mui/material/TableContainer';
+import MaterialTableHead from '@mui/material/TableHead';
+import MaterialTableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
 const columns = [
     {
       Header: "Address",
@@ -92,25 +102,50 @@ export default function table(){
         <TextField label="max price" variant="filled" type="number" onChange={maxPriceChange} />
         <TextField label="min acres" variant="filled" type="number" onChange={minAcresChange} />
         <p>Total Results: {filteredProfiles.length}</p>
-        <table>
-        {isLoading ? (<h1>Loading..</h1>) : ""}
-      <thead>
-          <tr>
-            {columns.map((column, j) => (
-              <th key={j} onClick={sortClick.bind(column.accessor)}>{column["Header"]}</th>
-            ))}
-          </tr>
-      </thead>
-      <tbody>
-        {filteredProfiles.map((row, i) => {
-            return (
-                <tr key={i}>
-                    {columns.map((colHeader, k)=><TableCell key={k} colHeader={colHeader} row={row}></TableCell>)}
-                </tr>
-            );
-        })}
-      </tbody>
-    </table>
+        <MaterialTableContainer component={Paper}>
+          <MaterialTable sx={{ minWidth: 650 }} aria-label="simple table">
+            <MaterialTableHead>
+              <MaterialTableRow>
+                {columns.map((column, j) => (
+                  <MaterialTableCell key={j} onClick={sortClick.bind(column.accessor)}>{column["Header"]}</MaterialTableCell>
+                ))}
+              </MaterialTableRow>
+            </MaterialTableHead>
+            <MaterialTableBody>
+            {filteredProfiles.map((row, i) => {
+                return (
+                  <MaterialTableRow
+                    key={row.name}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    {columns.map((colHeader, k)=><MaterialTableCell><TableCell key={k} colHeader={colHeader} row={row}></TableCell></MaterialTableCell>)}
+                  </MaterialTableRow>
+                );
+            })}
+            </MaterialTableBody>
+          </MaterialTable>
+        </MaterialTableContainer>
+        
     </>
   );
 }
+
+// <table>
+//         {isLoading ? (<h1>Loading..</h1>) : ""}
+//       <thead>
+//           <tr>
+//             {columns.map((column, j) => (
+//               <th key={j} onClick={sortClick.bind(column.accessor)}>{column["Header"]}</th>
+//             ))}
+//           </tr>
+//       </thead>
+//       <tbody>
+//         {filteredProfiles.map((row, i) => {
+//             return (
+//                 <tr key={i}>
+//                     {columns.map((colHeader, k)=><TableCell key={k} colHeader={colHeader} row={row}></TableCell>)}
+//                 </tr>
+//             );
+//         })}
+//       </tbody>
+//     </table>
