@@ -34,12 +34,13 @@ export default function table(){
     const [pageNumber, setPageNumber] = useState(1);
     const [filteredProfiles, setFilteredProfiles] = useState([]);
     const [filterByPoa, setFilterByPoa] = useState(false);
+    const [filterOutPoa, setFilterOutPoa] = useState(false);
     const [filterByAddress, setFilterByAddress] = useState("");
     const [filterByMaxPrice, setFilterByMaxPrice] = useState(0);
     useEffect(()=>{
         //sort profiles, then setFilteredProfiles
         const sortFn = (first, second)=>{
-            if(first[sortProperty]==second[sortProperty])return 0;
+            if(first[sortProperty]===second[sortProperty])return 0;
             if(!first[sortProperty])return 1;
             if(!second[sortProperty])return -1;
             return first[sortProperty] > second[sortProperty] ? 1*sortDirection : -1*sortDirection;
@@ -47,11 +48,12 @@ export default function table(){
         // const paged = sorted.slice(0, pageNumber*PAGE_SIZE);
         let filtered = profiles.filter((p,i)=>profiles.indexOf(profiles.find(pr=>pr.url===p.url))===i); //dedupe
         if(filterByPoa)filtered=filtered.filter(p=>!p.price);// filters out anything with a price, remaining is POA
+        if(filterOutPoa)filtered=filtered.filter(p=>!!p.price);
         if(filterByAddress)filtered=filtered.filter(p=>p.address.toLowerCase().indexOf(filterByAddress.toLowerCase())>-1);
         if(filterByMaxPrice)filtered=filtered.filter(p=>!p.price || p.price<=filterByMaxPrice);
         const sorted = filtered.sort(sortFn);
         setFilteredProfiles(sorted);
-    }, [profiles, sortProperty, sortDirection, pageNumber, filterByPoa,filterByAddress,filterByMaxPrice]);
+    }, [profiles, sortProperty, sortDirection, pageNumber, filterByPoa,filterByAddress,filterByMaxPrice,filterOutPoa]);
     useEffect(() => {
         getProfiles();
     }, []);
@@ -61,6 +63,9 @@ export default function table(){
     }
     function filterByPoaClick(){
         setFilterByPoa(!filterByPoa);
+    }
+    function filterOutPoaClick(){
+        setFilterOutPoa(!filterOutPoa);
     }
     function addressSearchChange(e){
         const value = e.target.value.replace('bt', '')
@@ -72,8 +77,10 @@ export default function table(){
     return (
         <>
         <button onClick={filterByPoaClick}>{filterByPoa ? "filtering by poa" : "filter by poa"}</button>
+        <button onClick={filterOutPoaClick}>{filterOutPoa ? "filtering Out poa" : "filter Out poa"}</button>
         <input onChange={addressSearchChange} placeholder="BT search, just type number"></input>
         <input type="number" onChange={maxPriceChange} placeholder="max price"></input>
+        <p>Total Results: {filteredProfiles.length}</p>
         <table>
         {isLoading ? (<h1>Loading..</h1>) : ""}
       <thead>
