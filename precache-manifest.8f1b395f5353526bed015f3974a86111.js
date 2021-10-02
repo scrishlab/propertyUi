@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "1766a9e7332110922c54",
-    "url": "/propertyUi/static/css/main.37282878.chunk.css"
+    "revision": "3e143082c992a542fc9a",
+    "url": "/propertyUi/static/css/main.bfcd12ab.chunk.css"
   },
   {
-    "revision": "1766a9e7332110922c54",
-    "url": "/propertyUi/static/js/main.6b9e8dc8.chunk.js"
+    "revision": "3e143082c992a542fc9a",
+    "url": "/propertyUi/static/js/main.3d6d1161.chunk.js"
   },
   {
     "revision": "1cff6d754f06f0d56511",
     "url": "/propertyUi/static/js/runtime~main.0d7b37d5.js"
   },
   {
-    "revision": "0073d4220ef45a124cf1",
-    "url": "/propertyUi/static/js/2.7c44d013.chunk.js"
+    "revision": "646113ca92aa7db96636",
+    "url": "/propertyUi/static/js/2.091efb48.chunk.js"
   },
   {
     "revision": "a233593c9a4b0474d60c",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/propertyUi/static/media/logo.06e73328.svg"
   },
   {
-    "revision": "d6fa391afecf16e95f985428ea516a6d",
+    "revision": "54a253915ed13efd1a8694d3cf4766da",
     "url": "/propertyUi/index.html"
   }
 ];
