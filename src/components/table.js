@@ -2,6 +2,9 @@
 import React, {useEffect, useState} from "react";
 import usePropertyProfiles from "../hooks/use-property-profiles";
 import TableCell from "./table-cell";
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import TextField from '@mui/material/TextField';
 const columns = [
     {
       Header: "Address",
@@ -81,11 +84,13 @@ export default function table(){
     }
     return (
         <>
-        <button onClick={filterByPoaClick}>{filterByPoa ? "filtering by poa" : "filter by poa"}</button>
-        <button onClick={filterOutPoaClick}>{filterOutPoa ? "filtering Out poa" : "filter Out poa"}</button>
-        <input onChange={addressSearchChange} placeholder="BT search, just type number"></input>
-        <input type="number" onChange={maxPriceChange} placeholder="max price"></input>
-        <input type="number" onChange={minAcresChange} placeholder="min acres"></input>
+        <ButtonGroup variant="contained" aria-label="outlined primary button group">
+          <Button variant="contained" onClick={filterByPoaClick}>{filterByPoa ? "filtering by poa" : "filter by poa"}</Button>
+          <Button variant="contained" onClick={filterOutPoaClick}>{filterOutPoa ? "filtering Out poa" : "filter Out poa"}</Button>
+        </ButtonGroup>
+        <TextField label="BT search, just type number" variant="filled" onChange={addressSearchChange} />
+        <TextField label="max price" variant="filled" type="number" onChange={maxPriceChange} />
+        <TextField label="min acres" variant="filled" type="number" onChange={minAcresChange} />
         <p>Total Results: {filteredProfiles.length}</p>
         <table>
         {isLoading ? (<h1>Loading..</h1>) : ""}
