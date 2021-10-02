@@ -37,6 +37,7 @@ export default function table(){
     const [filterOutPoa, setFilterOutPoa] = useState(false);
     const [filterByAddress, setFilterByAddress] = useState("");
     const [filterByMaxPrice, setFilterByMaxPrice] = useState(0);
+    const [filterByMinAcres, setFilterByMinAcres] = useState(0);
     useEffect(()=>{
         //sort profiles, then setFilteredProfiles
         const sortFn = (first, second)=>{
@@ -51,14 +52,15 @@ export default function table(){
         if(filterOutPoa)filtered=filtered.filter(p=>!!p.price);
         if(filterByAddress)filtered=filtered.filter(p=>p.address.toLowerCase().indexOf(filterByAddress.toLowerCase())>-1);
         if(filterByMaxPrice)filtered=filtered.filter(p=>!p.price || p.price<=filterByMaxPrice);
+        if(filterByMinAcres)filtered=filtered.filter(p=>p.acres && p.acres >= filterByMinAcres);
         const sorted = filtered.sort(sortFn);
         setFilteredProfiles(sorted);
-    }, [profiles, sortProperty, sortDirection, pageNumber, filterByPoa,filterByAddress,filterByMaxPrice,filterOutPoa]);
+    }, [profiles, sortProperty, sortDirection, pageNumber, filterByPoa,filterByAddress,filterByMaxPrice,filterOutPoa,filterByMinAcres]);
     useEffect(() => {
         getProfiles();
     }, []);
     function sortClick(){
-        if(sortProperty!=this)return setSortProperty(this) && setSortDirection(-1);
+        if(sortProperty!==this)return setSortProperty(this) && setSortDirection(-1);
         setSortDirection(sortDirection*-1);
     }
     function filterByPoaClick(){
@@ -74,12 +76,16 @@ export default function table(){
     function maxPriceChange(e){
         setFilterByMaxPrice(parseInt(e.target.value));
     }
+    function minAcresChange(e){
+        setFilterByMinAcres(parseInt(e.target.value));
+    }
     return (
         <>
         <button onClick={filterByPoaClick}>{filterByPoa ? "filtering by poa" : "filter by poa"}</button>
         <button onClick={filterOutPoaClick}>{filterOutPoa ? "filtering Out poa" : "filter Out poa"}</button>
         <input onChange={addressSearchChange} placeholder="BT search, just type number"></input>
         <input type="number" onChange={maxPriceChange} placeholder="max price"></input>
+        <input type="number" onChange={minAcresChange} placeholder="min acres"></input>
         <p>Total Results: {filteredProfiles.length}</p>
         <table>
         {isLoading ? (<h1>Loading..</h1>) : ""}

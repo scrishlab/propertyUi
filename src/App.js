@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import Table from './components/table';
 import React from "react";
 import './App.css';
