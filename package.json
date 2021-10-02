@@ -2,7 +2,7 @@
   "name": "property-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://thomasjmwb.github.io/property-ui",
+  "homepage": "http://scrishlab.github.io/propertyUi",
   "dependencies": {
     "@supabase/supabase-js": "^1.23.0",
     "@testing-library/jest-dom": "^5.11.4",
