@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function TableCell(props){
     const {colHeader, row} = props;
-    const AddressRow = ()=>(<a href={row.url}>{row[colHeader.accessor]}</a>);
+    const AddressRow = ()=>(<a href={row.url} target="_blank">{row[colHeader.accessor]}</a>);
     const DefaultRow = ()=>(<p>{row[colHeader.accessor]}</p>);
     const PriceRow = ()=>{
         function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
