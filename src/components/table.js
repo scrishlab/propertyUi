@@ -63,7 +63,7 @@ export default function table(){
         let filtered = profiles.filter((p,i)=>profiles.indexOf(profiles.find(pr=>pr.url===p.url))===i); //dedupe
         if(filterByPoa)filtered=filtered.filter(p=>!p.price);// filters out anything with a price, remaining is POA
         if(filterOutPoa)filtered=filtered.filter(p=>!!p.price);
-        if(filterByAddress)filtered=filtered.filter(p=>p.address.toLowerCase().indexOf(filterByAddress.toLowerCase())>-1);
+        if(filterByAddress)filtered=filtered.filter(p=>!!p.address && p.address.toLowerCase().indexOf(filterByAddress.toLowerCase())>-1);
         if(filterByMaxPrice)filtered=filtered.filter(p=>!p.price || p.price<=filterByMaxPrice);
         if(filterByMinAcres)filtered=filtered.filter(p=>p.acres && p.acres >= filterByMinAcres);
         const sorted = filtered.sort(sortFn);
