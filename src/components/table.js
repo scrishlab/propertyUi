@@ -40,7 +40,8 @@ const columns = [
 
   
 const PAGE_SIZE=10;
-export default function table(){
+export default function table(props){
+    const {browsingPropertyType} = props;
     const [profiles, isLoading, error, getProfiles] = usePropertyProfiles([]);
     const [sortProperty, setSortProperty] = useState("pricePerAcre");
     const [sortDirection, setSortDirection] = useState(-1);//-1 is descending
@@ -61,6 +62,7 @@ export default function table(){
         };
         // const paged = sorted.slice(0, pageNumber*PAGE_SIZE);
         let filtered = profiles.filter((p,i)=>profiles.indexOf(profiles.find(pr=>pr.url===p.url))===i); //dedupe
+        if(browsingPropertyType)filtered=filtered.filter(p=>p.propertyType==browsingPropertyType.key);
         if(filterByPoa)filtered=filtered.filter(p=>!p.price);// filters out anything with a price, remaining is POA
         if(filterOutPoa)filtered=filtered.filter(p=>!!p.price);
         if(filterByAddress)filtered=filtered.filter(p=>!!p.address && p.address.toLowerCase().indexOf(filterByAddress.toLowerCase())>-1);
@@ -68,7 +70,7 @@ export default function table(){
         if(filterByMinAcres)filtered=filtered.filter(p=>p.acres && p.acres >= filterByMinAcres);
         const sorted = filtered.sort(sortFn);
         setFilteredProfiles(sorted);
-    }, [profiles, sortProperty, sortDirection, pageNumber, filterByPoa,filterByAddress,filterByMaxPrice,filterOutPoa,filterByMinAcres]);
+    }, [profiles, sortProperty, sortDirection, pageNumber, filterByPoa,filterByAddress,filterByMaxPrice,filterOutPoa,filterByMinAcres,browsingPropertyType]);
     useEffect(() => {
         getProfiles();
     }, []);

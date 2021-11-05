@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://scrishlab.github.io/propertyUi",
   "dependencies": {
+    "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.2",
     "@supabase/supabase-js": "^1.23.0",
     "@testing-library/jest-dom": "^5.11.4",
