@@ -61,7 +61,7 @@ export default function table(props){
             return first[sortProperty] > second[sortProperty] ? 1*sortDirection : -1*sortDirection;
         };
         // const paged = sorted.slice(0, pageNumber*PAGE_SIZE);
-        let filtered = profiles.filter((p,i)=>profiles.indexOf(profiles.find(pr=>pr.url===p.url))===i); //dedupe
+        let filtered = profiles; //init
         if(browsingPropertyType)filtered=filtered.filter(p=>p.propertyType==browsingPropertyType.key);
         if(filterByPoa)filtered=filtered.filter(p=>!p.price);// filters out anything with a price, remaining is POA
         if(filterOutPoa)filtered=filtered.filter(p=>!!p.price);

@@ -8,7 +8,15 @@ export default function usePropertyProfiles(initialState){
     const [error, setError] = useState(null);
     
     function supabaseGetProfiles(){
-        return client.from("land").select();
+        /**
+         * deduped_land is a postgres view created from the `land` table
+         * CREATE VIEW public.deduped_land AS
+            select url, price, acres, address, "propertyType" from public.land where id in (
+            select ids.id from (select distinct on (url) url, id, updated_at from public.land order by url, updated_at) ids
+            )
+         * 
+         */
+        return client.from("deduped_land").select();
     }
 
     async function getProfiles(){
