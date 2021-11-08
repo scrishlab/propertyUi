@@ -60,8 +60,9 @@ export default function table(props){
             if(!second[sortProperty])return -1;
             return first[sortProperty] > second[sortProperty] ? 1*sortDirection : -1*sortDirection;
         };
+        // todo add pagination
         // const paged = sorted.slice(0, pageNumber*PAGE_SIZE);
-        let filtered = profiles; //init
+        let filtered = profiles.slice(0,100); //init
         if(browsingPropertyType)filtered=filtered.filter(p=>p.propertyType==browsingPropertyType.key);
         if(filterByPoa)filtered=filtered.filter(p=>!p.price);// filters out anything with a price, remaining is POA
         if(filterOutPoa)filtered=filtered.filter(p=>!!p.price);
